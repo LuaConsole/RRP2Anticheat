@@ -1,0 +1,36 @@
+rconsoleprint('@@RED@@')
+
+rconsoleprint('▓█████  ███▄    █ ▓█████▄  ▒█████    ██████     ▄▄▄       ███▄    █ ▄▄▄█████▓ ██▓ ▄████▄   ██░ ██ ▓█████ ▄▄▄     ▄▄▄█████▓')
+rconsoleprint('▓█   ▀  ██ ▀█   █ ▒██▀ ██▌▒██▒  ██▒▒██    ▒    ▒████▄     ██ ▀█   █ ▓  ██▒ ▓▒▓██▒▒██▀ ▀█  ▓██░ ██▒▓█   ▀▒████▄   ▓  ██▒ ▓▒')
+rconsoleprint('▒███   ▓██  ▀█ ██▒░██   █▌▒██░  ██▒░ ▓██▄      ▒██  ▀█▄  ▓██  ▀█ ██▒▒ ▓██░ ▒░▒██▒▒▓█    ▄ ▒██▀▀██░▒███  ▒██  ▀█▄ ▒ ▓██░ ▒░')
+rconsoleprint('▒▓█  ▄ ▓██▒  ▐▌██▒░▓█▄   ▌▒██   ██░  ▒   ██▒   ░██▄▄▄▄██ ▓██▒  ▐▌██▒░ ▓██▓ ░ ░██░▒▓▓▄ ▄██▒░▓█ ░██ ▒▓█  ▄░██▄▄▄▄██░ ▓██▓ ░ ')
+rconsoleprint('░▒████▒▒██░   ▓██░░▒████▓ ░ ████▓▒░▒██████▒▒    ▓█   ▓██▒▒██░   ▓██░  ▒██▒ ░ ░██░▒ ▓███▀ ░░▓█▒░██▓░▒████▒▓█   ▓██▒ ▒██▒ ░ ')
+rconsoleprint('░░ ▒░ ░░ ▒░   ▒ ▒  ▒▒▓  ▒ ░ ▒░▒░▒░ ▒ ▒▓▒ ▒ ░    ▒▒   ▓▒█░░ ▒░   ▒ ▒   ▒ ░░   ░▓  ░ ░▒ ▒  ░ ▒ ░░▒░▒░░ ▒░ ░▒▒   ▓▒█░ ▒ ░░   ')
+rconsoleprint(' ░ ░  ░░ ░░   ░ ▒░ ░ ▒  ▒   ░ ▒ ▒░ ░ ░▒  ░ ░     ▒   ▒▒ ░░ ░░   ░ ▒░    ░     ▒ ░  ░  ▒    ▒ ░▒░ ░ ░ ░  ░ ▒   ▒▒ ░   ░    ')
+rconsoleprint('   ░      ░   ░ ░  ░ ░  ░ ░ ░ ░ ▒  ░  ░  ░       ░   ▒      ░   ░ ░   ░       ▒ ░░         ░  ░░ ░   ░    ░   ▒    ░      ')
+rconsoleprint('   ░  ░         ░    ░        ░ ░        ░           ░  ░         ░           ░  ░ ░       ░  ░  ░   ░  ░     ░  ░        ')
+rconsoleprint('                   ░                                                             ░                                        ')
+
+local maxspeed = 30 --The maximum distance the player can travel within a check time. Try to keep this higher than 16.
+local checktime = 1 --How many seconds we wait before we record their speed.
+--If we make checktime too fast, like ".1", the script will be recording positions too fast and thus will fail to work correctly!
+
+local root = script.Parent:WaitForChild("HumanoidRootPart") --Get HumanoidRootPart so we can keep track of the player's position.
+local lastcf = root.CFrame --We will store the player's CFrame so that we can move the player there if they seem to be hacking.
+
+while wait(checktime) do
+
+   if math.floor((Vector3.new(lastcf.p.X, 0, lastcf.p.Z) - Vector3.new(root.Position.X, 0, 
+root.Position.Z)).magnitude) > maxspeed then --We compare the length of the last known position, lastcf.p, with the current position, root.Position. If it's greater than maxspeed, they're hacking.
+
+      --See how we ignored the Y axis in the calculation? Also notice how we rounded on the line above? This prevents an inaccurate reading.
+
+      print("Hack detected for "..script.Parent.Name.."!")
+
+      root.Parent:SetPrimaryPartCFrame(lastcf) --The player is hacking! Because this could be a false positive, we DO NOT KICK THE PLAYER. Instead, we peacefully move them back to their last known valid position!
+
+   end
+
+   lastcf = root.CFrame --We store the player's position so we can see if they're hacking later!
+
+end
