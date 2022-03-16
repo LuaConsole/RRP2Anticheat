@@ -1,0 +1,27 @@
+rconsoleprint('@@RED@@')
+
+rconsoleprint('▓█████  ███▄    █ ▓█████▄  ▒█████    ██████     ▄▄▄       ███▄    █ ▄▄▄█████▓ ██▓ ▄████▄   ██░ ██ ▓█████ ▄▄▄     ▄▄▄█████▓')
+rconsoleprint('▓█   ▀  ██ ▀█   █ ▒██▀ ██▌▒██▒  ██▒▒██    ▒    ▒████▄     ██ ▀█   █ ▓  ██▒ ▓▒▓██▒▒██▀ ▀█  ▓██░ ██▒▓█   ▀▒████▄   ▓  ██▒ ▓▒')
+rconsoleprint('▒███   ▓██  ▀█ ██▒░██   █▌▒██░  ██▒░ ▓██▄      ▒██  ▀█▄  ▓██  ▀█ ██▒▒ ▓██░ ▒░▒██▒▒▓█    ▄ ▒██▀▀██░▒███  ▒██  ▀█▄ ▒ ▓██░ ▒░')
+rconsoleprint('▒▓█  ▄ ▓██▒  ▐▌██▒░▓█▄   ▌▒██   ██░  ▒   ██▒   ░██▄▄▄▄██ ▓██▒  ▐▌██▒░ ▓██▓ ░ ░██░▒▓▓▄ ▄██▒░▓█ ░██ ▒▓█  ▄░██▄▄▄▄██░ ▓██▓ ░ ')
+rconsoleprint('░▒████▒▒██░   ▓██░░▒████▓ ░ ████▓▒░▒██████▒▒    ▓█   ▓██▒▒██░   ▓██░  ▒██▒ ░ ░██░▒ ▓███▀ ░░▓█▒░██▓░▒████▒▓█   ▓██▒ ▒██▒ ░ ')
+rconsoleprint('░░ ▒░ ░░ ▒░   ▒ ▒  ▒▒▓  ▒ ░ ▒░▒░▒░ ▒ ▒▓▒ ▒ ░    ▒▒   ▓▒█░░ ▒░   ▒ ▒   ▒ ░░   ░▓  ░ ░▒ ▒  ░ ▒ ░░▒░▒░░ ▒░ ░▒▒   ▓▒█░ ▒ ░░   ')
+rconsoleprint(' ░ ░  ░░ ░░   ░ ▒░ ░ ▒  ▒   ░ ▒ ▒░ ░ ░▒  ░ ░     ▒   ▒▒ ░░ ░░   ░ ▒░    ░     ▒ ░  ░  ▒    ▒ ░▒░ ░ ░ ░  ░ ▒   ▒▒ ░   ░    ')
+rconsoleprint('   ░      ░   ░ ░  ░ ░  ░ ░ ░ ░ ▒  ░  ░  ░       ░   ▒      ░   ░ ░   ░       ▒ ░░         ░  ░░ ░   ░    ░   ▒    ░      ')
+rconsoleprint('   ░  ░         ░    ░        ░ ░        ░           ░  ░         ░           ░  ░ ░       ░  ░  ░   ░  ░     ░  ░        ')
+rconsoleprint('                   ░                                                             ░                                        ')
+
+
+game:GetService("RunService").Heartbeat:Connect(function()
+	for _,v in pairs(game:GetService("Players"):GetPlayers()) do
+		if v.Character then
+			if v.Character.Humanoid:GetState() == Enum.HumanoidStateType.PlatformStanding or v.Character.Humanoid:GetState() == Enum.HumanoidStateType.Freefall  then
+				if v.Character.HumanoidRootPart.Velocity.Y < 5 then
+					print("User is flying.")
+				else
+					print("User is not flying.")
+				end
+			end
+		end
+	end
+end)
